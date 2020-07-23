@@ -65,6 +65,10 @@ func getStockData() []byte {
 		})
 	})
 
+	c.OnError(func(r *colly.Response, err error) {
+		fmt.Println("Request URL:", r.Request.URL, "failed with response:", r, "\nError:", err)
+	})
+
 	c.Visit("https://www.fundamentus.com.br/resultado.php")
 
 	jsonString, _ := json.Marshal(result)
@@ -83,6 +87,7 @@ func saveToDisk(json []byte) {
 }
 
 func getJSONFromFundamentus(w http.ResponseWriter, req *http.Request) {
+	fmt.Println("Retrieving Fundamentus data...")
 	json := getStockData()
 	fmt.Fprintf(w, string(json))
 }
