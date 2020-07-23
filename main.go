@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 
@@ -86,7 +88,13 @@ func getJSONFromFundamentus(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
+
 	http.HandleFunc("/json", getJSONFromFundamentus)
-	fmt.Println("Serving from localhost:80")
-	http.ListenAndServe(":80", nil)
+	fmt.Println("Serving from localhost:" + port)
+	http.ListenAndServe(":"+port, nil)
 }
