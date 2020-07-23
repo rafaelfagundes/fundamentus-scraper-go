@@ -16,4 +16,4 @@ Remember to give run permission on UNIX-based systems\
 \
 `chmod +x fundamentus-scraper-go`
 \
-Server will run on port 80, so if you want another one, change the port before build
+Server will run on port 80, so if you want another one, change the port in enviroment before run
