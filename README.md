@@ -1,21 +1,19 @@
-# fundamentus-scraper-go
+# Fundamentus Scraper
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 ## Build
 
-To build the application run the following command\
+To build application run the following command\
 \
 `go build`
 
 ## Run
 
-Run the application `fundamentus-scraper-go` created in the project folder\
+Run application `fundamentus-scraper-go` created in project folder\
 \
 Remember to give run permission on UNIX-based systems\
 \
 `chmod +x fundamentus-scraper-go`
-
-## Output File
-
-The output file will be created in `./output/data.json`
+\
+Server will run on port 80, so if you want another one, change the port before build

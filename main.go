@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"strconv"
 	"strings"
 
@@ -62,10 +63,6 @@ func getStockData() []byte {
 		})
 	})
 
-	c.OnRequest(func(r *colly.Request) {
-		fmt.Println("Visiting", r.URL)
-	})
-
 	c.Visit("https://www.fundamentus.com.br/resultado.php")
 
 	jsonString, _ := json.Marshal(result)
@@ -83,9 +80,13 @@ func saveToDisk(json []byte) {
 	check(err)
 }
 
-func main() {
-	fmt.Println("Wait while the application retrieves the stock data...")
+func getJSONFromFundamentus(w http.ResponseWriter, req *http.Request) {
 	json := getStockData()
-	saveToDisk(json)
-	fmt.Println("Done! The file was written to ./output/data.json")
+	fmt.Fprintf(w, string(json))
+}
+
+func main() {
+	http.HandleFunc("/json", getJSONFromFundamentus)
+	fmt.Println("Serving from localhost:80")
+	http.ListenAndServe(":80", nil)
 }
