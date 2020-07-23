@@ -26,11 +26,11 @@ func getStockData() []byte {
 		// Get the table headers
 		headers := make([]string, 0)
 		e.ForEach("thead tr th a", func(_ int, el *colly.HTMLElement) {
-			if el.Text == "Papel" {
-				// To show this column first on JSON
-				headers = append(headers, "^Papel")
+			if el.Text != "Papel" {
+				headers = append(headers, "^"+el.Text)
 			} else {
-				headers = append(headers, el.Text)
+				// To show this column first on JSON
+				headers = append(headers, "Papel")
 			}
 		})
 
